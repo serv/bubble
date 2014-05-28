@@ -28,6 +28,7 @@
 
 -(void)sendMyMessage;
 -(void)didReceiveDataWithNotification:(NSNotification *)notification;
+-(IBAction)takePicture:(id)sender;
 
 @end
 
@@ -260,6 +261,24 @@ didFinishReceivingResourceWithName:(NSString *)resourceName
                                                error:nil]; 
                     }]; 
     }); 
+}
+
+-(IBAction)takePicture:(id)sender {
+    UIImagePickerController *imagePicker =
+    [[UIImagePickerController alloc] init];
+    
+    if ([UIImagePickerController
+         isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    } else {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    
+    imagePicker.delegate = self;
+    
+    [self presentViewController:imagePicker
+                       animated:YES
+                     completion:nil];
 }
 
 @end
